@@ -696,15 +696,258 @@ h1, h2, h3 {
   gap: 0.7rem;
 }
 
-.profile-card {
+/* Option 3: 3D Parchment Flip Cards */
+.founder-flip-section {
+  padding: 6rem 0;
+}
+
+.section-subheading {
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+  color: rgba(32, 32, 32, 0.68);
+  font-weight: 400;
+}
+
+.founder-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  max-width: 960px;
+  margin: 3rem auto 0;
+}
+
+.flip-card-wrapper {
+  perspective: 1400px;
+  height: 520px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+.flip-card-wrapper:hover .flip-card-inner,
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(32, 24, 20, 0.12);
+  border: 1px solid var(--border);
+}
+
+/* Gold inset border line */
+.card-frame-gold {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(200, 164, 93, 0.35);
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* FRONT FACE */
+.flip-card-front {
+  background: #FDFBF7;
   display: flex;
   flex-direction: column;
 }
-.profile-image-wrap img {
+
+.flip-card-image-wrap {
+  position: relative;
   width: 100%;
-  height: 360px;
-  object-fit: cover;
+  height: 320px;
+  overflow: hidden;
 }
+
+.flip-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s ease;
+}
+
+.flip-card-wrapper:hover .flip-card-img {
+  transform: scale(1.04);
+}
+
+.flip-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(253,251,247,0) 50%, #FDFBF7 100%);
+}
+
+.flip-card-front-content {
+  padding: 1.2rem 1.8rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.flip-card-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(110, 29, 42, 0.07);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--burgundy);
+  text-transform: uppercase;
+}
+
+.flip-card-title {
+  font-family: var(--heading-font);
+  font-size: 1.85rem;
+  color: var(--charcoal);
+  margin: 0.4rem 0 0.1rem;
+  line-height: 1.1;
+}
+
+.flip-card-years {
+  font-size: 0.82rem;
+  color: rgba(32, 32, 32, 0.55);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.flip-hint-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--burgundy);
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: rgba(200, 164, 93, 0.15);
+  border-radius: 999px;
+  border: 1px solid rgba(200, 164, 93, 0.3);
+  transition: all 0.3s ease;
+}
+
+.flip-card-wrapper:hover .flip-hint-btn {
+  background: var(--burgundy);
+  color: var(--white);
+  border-color: var(--burgundy);
+}
+
+.spin-icon {
+  transition: transform 0.5s ease;
+}
+
+.flip-card-wrapper:hover .spin-icon {
+  transform: rotate(180deg);
+}
+
+/* BACK FACE */
+.flip-card-back {
+  background: linear-gradient(145deg, #5C1823 0%, #3B0E16 100%);
+  color: var(--white);
+  transform: rotateY(180deg);
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-back-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.flip-card-back-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.card-back-role {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+}
+
+.card-back-title {
+  font-family: var(--heading-font);
+  font-size: 1.85rem;
+  color: var(--white);
+  margin-top: 0.2rem;
+}
+
+.card-back-quote {
+  font-family: var(--heading-font);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--gold);
+  line-height: 1.4;
+  margin: 1.2rem 0;
+  padding: 0 0.5rem;
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+
+.card-back-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  align-self: center;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.back-btn:hover {
+  background: var(--gold);
+  color: var(--charcoal);
+  border-color: var(--gold);
+}
+
+@media (max-width: 768px) {
+  .founder-flip-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+  .flip-card-wrapper {
+    height: 480px;
+  }
+}
+
 
 .involvement-card {
   padding: 2rem 1.5rem;
