@@ -1023,6 +1023,54 @@ h1, h2, h3 {
   }
 }
 
+@media (max-width: 768px) {
+  /* Horizontal scroll pill bar on mobile */
+  .network-pill-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin: 1.2rem 0 1.6rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .network-pill-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .region-pill-btn {
+    flex-shrink: 0;
+  }
+
+  /* Proportional SVG map height on mobile */
+  .india-svg-map {
+    max-height: 250px;
+  }
+
+  /* Hide repetitive map pin text boxes on mobile (keeps glowing radar pin clean) */
+  .svg-pin-group g {
+    display: none;
+  }
+
+  /* Hide redundant legend and hover tags on mobile to eliminate vertical bloat */
+  .map-legend,
+  .hover-region-tag {
+    display: none;
+  }
+
+  .map-card-container {
+    padding: 1.2rem;
+  }
+
+  .council-drawer-card {
+    padding: 1.3rem;
+  }
+
+  /* Hide repeating 'Central Council' suffix on mobile rows: shows clean city names ('Bombay', 'Goa', 'Poona') */
+  .council-suffix {
+    display: none;
+  }
+}
+
+
 
 /* Option 3: 3D Parchment Flip Cards */
 .founder-flip-section {

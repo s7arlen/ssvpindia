@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, Search, Building2, ChevronRight, Compass } from 'lucide-react'
 import { councilRegions, nationalCouncil } from '../data/councils'
@@ -308,7 +308,10 @@ export default function IndiaMap() {
                       <div className="council-item-icon">
                         <MapPin size={15} />
                       </div>
-                      <span className="council-item-name">{council}</span>
+                      <span className="council-item-name">
+                        <span className="council-city">{council.replace(/\s+Central\s+Council$/i, '')}</span>
+                        <span className="council-suffix"> Central Council</span>
+                      </span>
                       <ChevronRight size={14} className="council-arrow" />
                     </motion.li>
                   ))
