@@ -86,7 +86,7 @@ export default function Navbar() {
     <header className="site-header scrolled">
       <nav className="nav-shell" aria-label="Main navigation">
         <Link to="/" className="brand" aria-label="SSVP India home">
-          <img src="/ssvpindia/ssvp-logo.png" alt="SSVP Logo" className="brand-logo" />
+          <img src="/ssvp-logo.png" alt="SSVP Logo" className="brand-logo" />
         </Link>
 
         <div

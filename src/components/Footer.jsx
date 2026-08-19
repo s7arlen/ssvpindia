@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="section-shell footer-shell">
         <div className="footer-brand">
           <div className="brand footer-brand-mark">
-            <img src="/ssvpindia/ssvp-logo.png" alt="SSVP Logo" className="brand-logo" />
+            <img src="/ssvp-logo.png" alt="SSVP Logo" className="brand-logo" />
             <span className="brand-mark">SSVP</span>
             <span className="brand-text">INDIA</span>
           </div>

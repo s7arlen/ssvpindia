@@ -14,7 +14,7 @@ export default function AboutSection() {
     <section className="section-shell about-section" id="who-we-are">
       <div className="about-visual">
         <img
-          src="/ssvpindia/images/about-compassion.jpg"
+          src="/images/about-compassion.jpg"
           alt="Community coming together in service and compassion"
           className="rounded-2xl shadow-xl object-cover w-full h-full"
         />
