@@ -63,6 +63,7 @@ export default function usePageMeta(pathname) {
 
   useEffect(() => {
     document.title = meta.title
+    const currentUrl = window.location.href
 
     const descriptionTag = document.querySelector('meta[name="description"]')
     if (descriptionTag) {
@@ -71,7 +72,7 @@ export default function usePageMeta(pathname) {
 
     const canonical = document.querySelector('link[rel="canonical"]')
     if (canonical) {
-      canonical.setAttribute('href', meta.url)
+      canonical.setAttribute('href', currentUrl)
     }
 
     const ogTitle = document.querySelector('meta[property="og:title"]')
@@ -80,7 +81,7 @@ export default function usePageMeta(pathname) {
 
     if (ogTitle) ogTitle.setAttribute('content', meta.title)
     if (ogDescription) ogDescription.setAttribute('content', meta.description)
-    if (ogUrl) ogUrl.setAttribute('content', meta.url)
+    if (ogUrl) ogUrl.setAttribute('content', currentUrl)
 
     const twitterTitle = document.querySelector('meta[property="twitter:title"]')
     const twitterDescription = document.querySelector('meta[property="twitter:description"]')
