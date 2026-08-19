@@ -633,68 +633,396 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
-.network-section {
+/* Option 1: Interactive SVG Map & Glassmorphism Council Drawer */
+.network-section-v2 {
   position: relative;
 }
 
-.network-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 1.5rem;
-  align-items: stretch;
+.network-subtitle {
+  font-size: 1.02rem;
+  color: rgba(32, 32, 32, 0.65);
+  margin-top: 0.4rem;
 }
 
-.map-panel,
-.council-panel {
-  background: rgba(255,255,255,0.72);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.map-graphic {
-  min-height: 420px;
-  padding: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 0.8rem;
-}
-.map-region {
+.network-pill-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  border-radius: 16px;
-  border: 1px solid rgba(110,29,42,0.2);
-  background: rgba(110,29,42,0.04);
-  color: var(--charcoal);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: all var(--transition);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.8rem 0 2.2rem;
 }
-.map-region.selected {
+
+.region-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 12px rgba(32, 32, 32, 0.03);
+}
+
+.region-pill-btn:hover {
+  border-color: var(--burgundy);
+  color: var(--burgundy);
+  transform: translateY(-2px);
+}
+
+.region-pill-btn.active {
   background: var(--burgundy);
   color: var(--white);
+  border-color: var(--burgundy);
+  box-shadow: 0 6px 18px rgba(110, 29, 42, 0.25);
 }
 
-.council-panel {
-  padding: 1.5rem;
-}
-.council-region-title {
+.pill-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: rgba(110, 29, 42, 0.1);
   color: var(--burgundy);
-  margin: 0 0 1rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   font-size: 0.7rem;
   font-weight: 700;
 }
-.council-panel ul {
-  padding-left: 1.1rem;
-  color: rgba(32,32,32,0.82);
-  display: grid;
-  gap: 0.7rem;
+
+.region-pill-btn.active .pill-count-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--white);
 }
+
+.network-grid-v2 {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* LEFT PANEL: SVG MAP CARD */
+.map-card-container {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(32, 32, 32, 0.08);
+}
+
+.hover-region-tag {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.svg-map-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.india-svg-map {
+  width: 100%;
+  max-height: 480px;
+  height: auto;
+  overflow: visible;
+}
+
+.svg-region-path {
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.svg-region-path:hover,
+.svg-region-path.is-hovered {
+  filter: drop-shadow(0 8px 16px rgba(200, 164, 93, 0.45));
+}
+
+.svg-pin-group {
+  transition: transform 0.3s ease;
+}
+
+.svg-pin-group:hover {
+  transform: scale(1.18);
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: rgba(32, 32, 32, 0.65);
+  font-weight: 600;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--burgundy);
+}
+
+.legend-dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+}
+
+/* RIGHT PANEL: COUNCIL DRAWER */
+.council-drawer-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.drawer-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+}
+
+.drawer-title {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--burgundy);
+  margin-top: 0.2rem;
+}
+
+.council-count-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(110, 29, 42, 0.08);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--burgundy);
+}
+
+/* Search Box */
+.council-search-box {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.council-search-box input {
+  width: 100%;
+  padding: 10px 38px 10px 36px;
+  background: rgba(248, 245, 239, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--charcoal);
+  transition: all 0.3s ease;
+}
+
+.council-search-box input:focus {
+  outline: none;
+  border-color: var(--burgundy);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(110, 29, 42, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(32, 32, 32, 0.45);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: rgba(32, 32, 32, 0.4);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* Council Scrollable List */
+.council-list-scroll {
+  flex: 1;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 1.2rem;
+}
+
+.council-list-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.council-list-scroll::-webkit-scrollbar-thumb {
+  background: rgba(110, 29, 42, 0.2);
+  border-radius: 4px;
+}
+
+.council-card-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.council-item-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(32, 32, 32, 0.07);
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.council-item-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(110, 29, 42, 0.08);
+  color: var(--burgundy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.council-item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  flex: 1;
+}
+
+.council-arrow {
+  color: rgba(32, 32, 32, 0.3);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.council-item-card:hover .council-arrow {
+  transform: translateX(3px);
+  color: var(--burgundy);
+}
+
+.no-councils-found {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: rgba(32, 32, 32, 0.55);
+  font-size: 0.9rem;
+}
+
+/* National HQ Banner */
+.national-hq-banner {
+  background: linear-gradient(135deg, rgba(110,29,42,0.06) 0%, rgba(200,164,93,0.12) 100%);
+  border: 1px solid rgba(200, 164, 93, 0.3);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hq-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  margin-bottom: 0.2rem;
+}
+
+.hq-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--burgundy);
+  line-height: 1.2;
+}
+
+.hq-city {
+  font-size: 0.78rem;
+  color: rgba(32, 32, 32, 0.6);
+}
+
+.hq-link-btn {
+  padding: 8px 14px;
+  background: var(--burgundy);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.25s ease;
+}
+
+.hq-link-btn:hover {
+  background: var(--gold);
+  color: var(--charcoal);
+}
+
+@media (max-width: 1024px) {
+  .network-grid-v2 {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* Option 3: 3D Parchment Flip Cards */
 .founder-flip-section {
