@@ -682,9 +682,69 @@ h1, h2, h3 {
   margin-top: 2rem;
 }
 
+/* LatestUpdates — merged news + event section */
+.latest-section {
+  background: var(--ivory);
+}
+
+.latest-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.latest-news {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.latest-event-panel {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.75rem;
+  position: sticky;
+  top: 100px;
+}
+
+.latest-event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 1rem 0 1.2rem;
+  gap: 0;
+  line-height: 1;
+}
+
+.latest-event-date span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(32, 32, 32, 0.55);
+}
+
+.latest-event-date strong {
+  font-family: var(--heading-font);
+  font-size: 5rem;
+  color: var(--burgundy);
+  line-height: 0.9;
+  margin: 0.2rem 0;
+}
+
+.latest-event-panel h3 {
+  font-size: 1.5rem;
+  margin: 0.4rem 0 0;
+  color: var(--charcoal);
+}
+
 .events-section {
   padding-top: 3rem;
 }
+
 .event-featured {
   display: grid;
   grid-template-columns: 180px 1fr;
@@ -1031,6 +1091,14 @@ h1, h2, h3 {
     grid-template-columns: 1fr 1fr;
   }
 
+  .latest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .latest-news {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .about-section,
   .network-grid {
     grid-template-columns: 1fr;
@@ -1081,6 +1149,7 @@ h1, h2, h3 {
   .story-grid,
   .involvement-grid,
   .news-grid,
+  .latest-news,
   .resource-grid,
   .card-grid,
   .profile-grid,

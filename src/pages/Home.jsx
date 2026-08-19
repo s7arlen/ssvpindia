@@ -2,14 +2,10 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ImpactStats from '../components/ImpactStats'
 import AboutSection from '../components/AboutSection'
+import FounderPatron from '../components/FounderPatron'
 import MissionGrid from '../components/MissionGrid'
 import IndiaMap from '../components/IndiaMap'
-import StorySection from '../components/StorySection'
-import FounderPatron from '../components/FounderPatron'
-import GetInvolved from '../components/GetInvolved'
-import NewsSection from '../components/NewsSection'
-import EventsSection from '../components/EventsSection'
-import Resources from '../components/Resources'
+import LatestUpdates from '../components/LatestUpdates'
 import CTASection from '../components/CTASection'
 import Footer from '../components/Footer'
 import usePageMeta from '../hooks/usePageMeta'
@@ -23,14 +19,10 @@ export default function Home() {
         <Hero />
         <ImpactStats />
         <AboutSection />
+        <FounderPatron />
         <MissionGrid />
         <IndiaMap />
-        <StorySection />
-        <FounderPatron />
-        <GetInvolved />
-        <NewsSection />
-        <EventsSection />
-        <Resources />
+        <LatestUpdates />
         <CTASection />
       </main>
       <Footer />
