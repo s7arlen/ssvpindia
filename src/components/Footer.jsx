@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { ExternalLink, Mail, MapPin, Phone, Zap } from 'lucide-react'
 
 const footerLinks = {
   about: [
@@ -34,6 +34,7 @@ export default function Footer() {
       <div className="section-shell footer-shell">
         <div className="footer-brand">
           <div className="brand footer-brand-mark">
+            <img src="/ssvpindia/ssvp-logo.png" alt="SSVP Logo" className="brand-logo" />
             <span className="brand-mark">SSVP</span>
             <span className="brand-text">INDIA</span>
           </div>
@@ -83,7 +84,19 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="footer-bottom">© 2026 Society of St. Vincent de Paul, India. All Rights Reserved.</div>
+      <div className="footer-bottom">
+        <span>© 2026 Society of St. Vincent de Paul, India. All Rights Reserved.</span>
+        <a
+          href="https://appvertex.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-credit-badge"
+        >
+          <Zap size={11} className="footer-credit-icon" />
+          <span>Powered by <strong>AppVertex</strong></span>
+          <ExternalLink size={10} className="footer-credit-external" />
+        </a>
+      </div>
     </footer>
   )
 }

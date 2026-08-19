@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const navItems = [
   { label: 'ABOUT', to: '/about' },
@@ -9,10 +9,78 @@ const navItems = [
   { label: 'OUR NETWORK', to: '/national-council' },
   { label: 'STORIES', to: '/stories' },
   { label: 'RESOURCES', to: '/resources' },
+  { label: 'CONTACT', to: '/contact' },
 ]
+
+function DesktopNavItem({ item, hoveredPath, setHoveredPath, currentPath }) {
+  const [spotlightPos, setSpotlightPos] = useState({ x: 0, y: 0, isHovered: false })
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setSpotlightPos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      isHovered: true,
+    })
+  }
+
+  const handleMouseLeave = () => {
+    setSpotlightPos((prev) => ({ ...prev, isHovered: false }))
+    setHoveredPath(null)
+  }
+
+  const handleMouseEnter = () => {
+    setHoveredPath(item.to)
+  }
+
+  const activeTarget = hoveredPath || currentPath
+  const isSelected = activeTarget === item.to
+
+  return (
+    <NavLink
+      to={item.to}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={({ isActive }) =>
+        `relative px-3 py-2 text-[0.7rem] tracking-[0.18em] font-semibold uppercase transition-colors duration-200 rounded-lg group ${
+          isActive ? 'text-burgundy active' : 'text-charcoal/80 hover:text-burgundy'
+        }`
+      }
+      style={{ position: 'relative', overflow: 'hidden' }}
+    >
+      {/* Mouse Spotlight Glow */}
+      {spotlightPos.isHovered && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 rounded-lg"
+          style={{
+            background: `radial-gradient(60px circle at ${spotlightPos.x}px ${spotlightPos.y}px, rgba(110, 29, 42, 0.12), transparent 80%)`,
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        />
+      )}
+
+      <span className="relative z-10">{item.label}</span>
+
+      {/* Magnetic Underline Indicator */}
+      {isSelected && (
+        <motion.div
+          layoutId="magnetic-underline"
+          className="absolute bottom-0 left-2 right-2 h-[2.5px] bg-burgundy rounded-full shadow-[0_1px_6px_rgba(110,29,42,0.4)]"
+          transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+        />
+      )}
+    </NavLink>
+  )
+}
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [hoveredPath, setHoveredPath] = useState(null)
+  const [ctaHovered, setCtaHovered] = useState(false)
+  const location = useLocation()
 
   return (
     <header className="site-header scrolled">
@@ -21,22 +89,38 @@ export default function Navbar() {
           <img src="/ssvpindia/ssvp-logo.png" alt="SSVP Logo" className="brand-logo" />
         </Link>
 
-        <div className="nav-links desktop-nav" aria-label="Desktop navigation">
+        <div
+          className="nav-links desktop-nav"
+          aria-label="Desktop navigation"
+          onMouseLeave={() => setHoveredPath(null)}
+        >
           {navItems.map((item) => (
-            <NavLink
+            <DesktopNavItem
               key={item.to}
-              to={item.to}
-              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-            >
-              {item.label}
-            </NavLink>
+              item={item}
+              hoveredPath={hoveredPath}
+              setHoveredPath={setHoveredPath}
+              currentPath={location.pathname}
+            />
           ))}
-          <NavLink to="/contact" className="nav-link nav-link-cta">
-            CONTACT
-          </NavLink>
-          <Link to="/contact" className="join-button">
-            JOIN US <span aria-hidden="true">→</span>
-          </Link>
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+            onHoverStart={() => setCtaHovered(true)}
+            onHoverEnd={() => setCtaHovered(false)}
+          >
+            <Link to="/contact" className="join-button shadow-sm hover:shadow-md">
+              JOIN US{' '}
+              <motion.span
+                aria-hidden="true"
+                animate={{ x: ctaHovered ? 4 : 0 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+              >
+                →
+              </motion.span>
+            </Link>
+          </motion.div>
         </div>
 
         <button
@@ -70,9 +154,6 @@ export default function Navbar() {
                   {item.label}
                 </NavLink>
               ))}
-              <NavLink to="/contact" className="mobile-link" onClick={() => setMobileOpen(false)}>
-                CONTACT
-              </NavLink>
               <Link to="/contact" className="mobile-cta" onClick={() => setMobileOpen(false)}>
                 JOIN US
               </Link>
@@ -83,3 +164,4 @@ export default function Navbar() {
     </header>
   )
 }
+
